@@ -1,13 +1,15 @@
 <?php
-// Archivo de verificación para jrolingseguidores.xyz
+// Archivo de verificación para Hostinger
 // Este archivo ayuda a verificar que PHP funciona correctamente
+// y que los permisos están configurados adecuadamente
 
+// Mostrar información básica
 echo '<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificación de Jroling Seguidores</title>
+    <title>Verificación de Jorling Seguidores</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -57,58 +59,77 @@ echo '<!DOCTYPE html>
 </head>
 <body>
     <div class="container">
-        <h1>Jroling Seguidores - Verificación del Servidor</h1>';
+        <h1>Jorling Seguidores - Verificación del Servidor</h1>';
 
-// Verificar información del servidor
+// Verificar permisos de directorio
+$publicHtmlPerms = substr(sprintf("%o", fileperms($_SERVER["DOCUMENT_ROOT"])), -4);
+$currentDirPerms = substr(sprintf("%o", fileperms(".")), -4);
+
 echo '<div class="info">
     <p><strong>Dominio:</strong> ' . $_SERVER['HTTP_HOST'] . '</p>
     <p><strong>Directorio raíz:</strong> ' . $_SERVER["DOCUMENT_ROOT"] . '</p>
+    <p><strong>Permisos del directorio raíz:</strong> ' . $publicHtmlPerms . '</p>
+    <p><strong>Permisos del directorio actual:</strong> ' . $currentDirPerms . '</p>
     <p><strong>PHP Version:</strong> ' . phpversion() . '</p>
-    <p><strong>Fecha y hora:</strong> ' . date('Y-m-d H:i:s') . '</p>
 </div>';
 
-// Verificar si el dominio es correcto
-if ($_SERVER['HTTP_HOST'] === 'jrolingseguidores.xyz' || $_SERVER['HTTP_HOST'] === 'www.jrolingseguidores.xyz') {
-    echo '<p class="success">✅ Dominio correcto: ' . $_SERVER['HTTP_HOST'] . '</p>';
-} else {
-    echo '<p class="error">⚠️ Dominio detectado: ' . $_SERVER['HTTP_HOST'] . '</p>';
-}
-
-// Verificar permisos de escritura
+// Verificar si podemos crear archivos
 $testFile = 'test_write_permission.txt';
 $writeTest = @file_put_contents($testFile, 'Test write permissions');
 
 if ($writeTest !== false) {
     echo '<p class="success">✅ Permisos de escritura: OK</p>';
-    @unlink($testFile);
+    @unlink($testFile); // Eliminar archivo de prueba
 } else {
-    echo '<p class="error">❌ Permisos de escritura: ERROR</p>';
+    echo '<p class="error">❌ Permisos de escritura: ERROR - No se puede escribir en este directorio</p>';
 }
 
-// Verificar extensiones PHP necesarias
-$extensions = ['mysqli', 'curl', 'json', 'openssl'];
-foreach ($extensions as $ext) {
-    if (extension_loaded($ext)) {
-        echo '<p class="success">✅ Extensión ' . $ext . ': Disponible</p>';
-    } else {
-        echo '<p class="error">❌ Extensión ' . $ext . ': No disponible</p>';
+// Verificar archivos importantes
+$requiredFiles = ['index.html', '.htaccess', 'next.config.js'];
+$missingFiles = [];
+
+foreach ($requiredFiles as $file) {
+    if (!file_exists($file)) {
+        $missingFiles[] = $file;
     }
 }
 
-echo '<h2>Estado del Sistema:</h2>
-<p class="success">✅ PHP funcionando correctamente</p>
-<p class="success">✅ Servidor web activo</p>
-<p class="success">✅ Dominio jrolingseguidores.xyz configurado</p>
+if (empty($missingFiles)) {
+    echo '<p class="success">✅ Archivos principales: Todos presentes</p>';
+} else {
+    echo '<p class="error">❌ Archivos faltantes: ' . implode(', ', $missingFiles) . '</p>';
+}
 
-<h2>Próximos pasos:</h2>
+// Verificar conexión a base de datos (comentado por seguridad)
+echo '<p>Para verificar la conexión a la base de datos, descomenta el código en este archivo.</p>';
+/*
+$dbHost = 'localhost';
+$dbUser = 'tu_usuario';
+$dbPass = 'tu_password';
+$dbName = 'tu_base_datos';
+
+try {
+    $conn = new mysqli($dbHost, $dbUser, $dbPass, $dbName);
+    if ($conn->connect_error) {
+        echo '<p class="error">❌ Conexión a base de datos: ERROR - ' . $conn->connect_error . '</p>';
+    } else {
+        echo '<p class="success">✅ Conexión a base de datos: OK</p>';
+        $conn->close();
+    }
+} catch (Exception $e) {
+    echo '<p class="error">❌ Conexión a base de datos: ERROR - ' . $e->getMessage() . '</p>';
+}
+*/
+
+echo '<h2>Soluciones para el error 403:</h2>
 <ol>
-    <li>Subir todos los archivos del proyecto</li>
-    <li>Configurar la base de datos MySQL</li>
-    <li>Configurar las variables de entorno</li>
-    <li>Activar SSL (Let\'s Encrypt)</li>
+    <li>Verifica que los permisos de los archivos sean 644</li>
+    <li>Verifica que los permisos de las carpetas sean 755</li>
+    <li>Asegúrate de que existe un archivo index.html o index.php en la raíz</li>
+    <li>Revisa la configuración del .htaccess</li>
 </ol>
 
-<a href="/" class="btn">Recargar página</a>
+<a href="/" class="btn">Volver a intentar</a>
 </div>
 </body>
 </html>';

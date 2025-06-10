@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Jorling Seguidores</title>
+    <meta name="description" content="Accede a tu cuenta de Jorling Seguidores">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+        
+        .gradient-btn {
+            background: linear-gradient(135deg, #bb86fc 0%, #8b5cf6 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .gradient-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(187, 134, 252, 0.3);
+        }
+    </style>
+</head>
+<body class="gradient-bg text-white min-h-screen flex items-center justify-center p-4">
+    <!-- Back to Home -->
+    <a href="index.html" class="absolute top-6 left-6 flex items-center space-x-2 text-white/80 hover:text-white transition-colors z-10">
+        <i class="fas fa-arrow-left"></i>
+        <span>Volver al Inicio</span>
+    </a>
+
+    <div class="w-full max-w-md relative z-10">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <div class="w-10 h-10 gradient-btn rounded-lg flex items-center justify-center">
+                    <i class="fas fa-star text-white"></i>
+                </div>
+                <span class="text-2xl font-bold text-white">Jorling Seguidores</span>
+            </div>
+            <p class="text-white/60">Accede a tu cuenta o crea una nueva</p>
+        </div>
+
+        <!-- Login/Register Tabs -->
+        <div class="bg-white/5 border border-white/10 backdrop-blur-sm rounded-xl overflow-hidden">
+            <div class="flex">
+                <button id="login-tab" class="flex-1 py-3 px-4 text-center gradient-btn text-white font-medium" onclick="showTab('login')">
+                    Iniciar Sesión
+                </button>
+                <button id="register-tab" class="flex-1 py-3 px-4 text-center bg-white/5 text-white/60 font-medium" onclick="showTab('register')">
+                    Registrarse
+                </button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form" class="p-6">
+                <h2 class="text-xl font-bold text-white mb-2">Bienvenido de vuelta</h2>
+                <p class="text-white/60 mb-6">Ingresa tus credenciales para acceder</p>
+
+                <form onsubmit="handleLogin(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-white text-sm font-medium block mb-2">Email</label>
+                            <div class="relative">
+                                <i class="fas fa-envelope absolute left-3 top-3 text-white/40"></i>
+                                <input type="email" id="login-email" placeholder="tu@email.com" required
+                                       class="w-full pl-10 bg-white/10 border border-white/20 rounded-lg p-3 text-white placeholder:text-white/40 focus:border-purple-500 focus:outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-white text-sm font-medium block mb-2">Contraseña</label>
+                            <div class="relative">
+                                <i class="fas fa-lock absolute left-3 top-3 text-white/40"></i>
+                                <input type="password" id="login-password" placeholder="Tu contraseña" required
+                                       class="w-full pl-10 pr-10 bg-white/10 border border-white/20 rounded-lg p-3 text-white placeholder:text-white/40 focus:border-purple-500 focus:outline-none">
+                                <button type="button" class="absolute right-3 top-3 text-white/40 hover:text-white/60" onclick="togglePassword('login-password')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm text-white/80">Recordarme</span>
+                            </label>
+                            <a href="#" class="text-sm text-purple-400 hover:text-purple-300">¿Olvidaste tu contraseña?</a>
+                        </div>
+
+                        <button type="submit" class="w-full gradient-btn text-white font-semibold py-3 rounded-lg">
+                            Iniciar Sesión
+                        </button>
+                    </div>
+                </form>
+
+                <div class="text-center mt-4">
+                    <p class="text-sm text-white/60">
+                        ¿No tienes cuenta? 
+                        <button class="text-purple-400 hover:text-purple-300" onclick="showTab('register')">Regístrate aquí</button>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form" class="p-6 hidden">
+                <h2 class="text-xl font-bold text-white mb-2">Crear cuenta nueva</h2>
+                <p class="text-white/60 mb-6">Únete a miles de usuarios satisfechos</p>
+
+                <form onsubmit="handleRegister(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-white text-sm font-medium block mb-2">Nombre completo</label>
+                            <div class="relative">
+                                <i class="fas fa-user absolute left-3 top-3 text-white/40"></i>
+                                <input type="text" id="register-name" placeholder="Tu nombre completo" required
+                                       class="w-full pl-10 bg-white/10 border border-white/20 rounded-lg p-3 text-white placeholder:text-white/40 focus:border-purple-500 focus:outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-white text-sm font-medium block mb-2">Email</label>
+                            <div class="relative">
+                                <i class="fas fa-envelope absolute left-3 top-3 text-white/40"></i>
+                                <input type="email" id="register-email" placeholder="tu@email.com" required
+                                       class="w-full pl-10 bg-white/10 border border-white/20 rounded-lg p-3 text-white placeholder:text-white/40 focus:border-purple-500 focus:outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-white text-sm font-medium block mb-2">Contraseña</label>
+                            <div class="relative">
+                                <i class="fas fa-lock absolute left-3 top-3 text-white/40"></i>
+                                <input type="password" id="register-password" placeholder="Crea una contraseña segura" required
+                                       class="w-full pl-10 pr-10 bg-white/10 border border-white/20 rounded-lg p-3 text-white placeholder:text-white/40 focus:border-purple-500 focus:outline-none">
+                                <button type="button" class="absolute right-3 top-3 text-white/40 hover:text-white/60" onclick="togglePassword('register-password')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-white text-sm font-medium block mb-2">Confirmar contraseña</label>
+                            <div class="relative">
+                                <i class="fas fa-lock absolute left-3 top-3 text-white/40"></i>
+                                <input type="password" id="confirm-password" placeholder="Confirma tu contraseña" required
+                                       class="w-full pl-10 bg-white/10 border border-white/20 rounded-lg p-3 text-white placeholder:text-white/40 focus:border-purple-500 focus:outline-none">
+                            </div>
+                        </div>
+
+                        <div class="flex items-center">
+                            <input type="checkbox" id="terms" required class="mr-2">
+                            <label for="terms" class="text-sm text-white/80">
+                                Acepto los <a href="#" class="text-purple-400 hover:text-purple-300">términos y condiciones</a>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="w-full gradient-btn text-white font-semibold py-3 rounded-lg">
+                            Crear Cuenta
+                        </button>
+                    </div>
+                </form>
+
+                <div class="text-center mt-4">
+                    <p class="text-sm text-white/60">
+                        ¿Ya tienes cuenta? 
+                        <button class="text-purple-400 hover:text-purple-300" onclick="showTab('login')">Inicia sesión aquí</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="mt-8 grid grid-cols-3 gap-4 text-center">
+            <div class="text-white/60">
+                <div class="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-star text-purple-400 text-sm"></i>
+                </div>
+                <p class="text-xs">Entrega Rápida</p>
+            </div>
+            <div class="text-white/60">
+                <div class="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-lock text-purple-400 text-sm"></i>
+                </div>
+                <p class="text-xs">100% Seguro</p>
+            </div>
+            <div class="text-white/60">
+                <div class="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i class="fas fa-headset text-purple-400 text-sm"></i>
+                </div>
+                <p class="text-xs">Soporte 24/7</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tab) {
+            const loginTab = document.getElementById('login-tab');
+            const registerTab = document.getElementById('register-tab');
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+
+            if (tab === 'login') {
+                loginTab.className = 'flex-1 py-3 px-4 text-center gradient-btn text-white font-medium';
+                registerTab.className = 'flex-1 py-3 px-4 text-center bg-white/5 text-white/60 font-medium';
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+            } else {
+                loginTab.className = 'flex-1 py-3 px-4 text-center bg-white/5 text-white/60 font-medium';
+                registerTab.className = 'flex-1 py-3 px-4 text-center gradient-btn text-white font-medium';
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+            }
+        }
+
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'fas fa-eye';
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            // Here you would normally send this data to your backend
+            // For now, we'll simulate a successful login
+            alert('¡Inicio de sesión exitoso! Redirigiendo al dashboard...');
+            window.location.href = 'dashboard.html';
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (password !== confirmPassword) {
+                alert('Las contraseñas no coinciden');
+                return;
+            }
+
+            // Here you would normally send this data to your backend
+            // For now, we'll simulate a successful registration
+            alert('¡Registro exitoso! Redirigiendo al dashboard...');
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>
