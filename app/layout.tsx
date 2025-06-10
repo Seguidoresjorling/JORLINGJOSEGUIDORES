@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Jorling Seguidores - Crecimiento Real para Redes Sociales",
     description: "Plataforma líder en servicios de crecimiento para redes sociales. Entrega automática 24/7.",
-    url: "https://jorlingseguidores.com",
+    url: "https://jorlingseguidores.xyz",
     siteName: "Jorling Seguidores",
     type: "website",
   },
@@ -28,6 +28,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  metadataBase: new URL("https://jorlingseguidores.xyz"),
     generator: 'v0.dev'
 }
 
