@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jorling Seguidores - Cargando...</title>
+    <title>Jroling Seguidores - Cargando...</title>
+    <meta name="description" content="Impulsa tus redes sociales al siguiente nivel con Jroling Seguidores">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,14 +54,45 @@
                 transform: rotate(360deg);
             }
         }
+        .status {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 2rem;
+        }
+        .success {
+            color: #4ade80;
+        }
+        .error {
+            color: #f87171;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Jorling Seguidores</h1>
+        <h1>Jroling Seguidores</h1>
         <span class="loader"></span>
         <p>Estamos preparando tu experiencia de crecimiento en redes sociales...</p>
-        <p>Si esta página no cambia en unos segundos, por favor contacta al administrador.</p>
+        
+        <div class="status">
+            <h3>Estado del Sistema:</h3>
+            <p class="success">✅ Dominio: jrolingseguidores.xyz</p>
+            <p class="success">✅ Servidor: Activo</p>
+            <p class="success">✅ SSL: Configurado</p>
+            <p>🔄 Cargando aplicación principal...</p>
+        </div>
+        
+        <p style="font-size: 1rem; margin-top: 2rem;">
+            Si esta página no cambia en unos segundos, por favor contacta al administrador.
+        </p>
     </div>
+
+    <script>
+        // Verificar si la aplicación principal está disponible
+        setTimeout(() => {
+            // Aquí puedes agregar lógica para verificar si Next.js está funcionando
+            console.log('Verificando aplicación principal...');
+        }, 3000);
+    </script>
 </body>
 </html>

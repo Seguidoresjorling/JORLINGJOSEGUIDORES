@@ -91,7 +91,7 @@ export default function HomePage() {
               <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                 <Star className="w-5 h-5 text-white" />
               </div>
-              <span className="text-2xl font-bold text-white">Jorling Seguidores</span>
+              <span className="text-2xl font-bold text-white">Jroling Seguidores</span>
             </motion.div>
 
             <div className="hidden md:flex items-center space-x-6">
@@ -293,7 +293,7 @@ export default function HomePage() {
                 <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                   <Star className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-xl font-bold text-white">Jorling Seguidores</span>
+                <span className="text-xl font-bold text-white">Jroling Seguidores</span>
               </div>
               <p className="text-white/60">La plataforma líder en crecimiento de redes sociales</p>
             </div>
@@ -329,7 +329,7 @@ export default function HomePage() {
           </div>
 
           <div className="border-t border-white/10 mt-8 pt-8 text-center text-white/60">
-            <p>&copy; 2024 Jorling Seguidores. Todos los derechos reservados.</p>
+            <p>&copy; 2024 Jroling Seguidores. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
